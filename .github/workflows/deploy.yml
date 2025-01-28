@@ -55,11 +55,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION_NAME }}
-      - name: Create new EBL app
+      - name: Create new EBL app ver
         run: |
-           aws elasticbeanstalk create-application \
-          --application-name ${{ env.EB_APPLICATION_NAME }} \
-          --region ap-south-1
+           aws elasticbeanstalk create-application-version \
+           --application-name ${{ env.EB_APPLICATION_NAME }} \
+           --source-bundle S3Bucket="${{ env.EB_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+           --version-label "${{ env.VERSION_NAME }}" \
+           --region ap-south-1
 
       - name: Deploy new app
         run: |
