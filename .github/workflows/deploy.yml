@@ -1,7 +1,7 @@
 name: CI-CD pipeline to AWS
 env:
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-  EB_S3_BUCKET_NAME: "elasticbeanstalk-us-east-2-486795723792"
+  EB_S3_BUCKET_NAME: "elasticbeanstalk-ap-south-1-941377113359"
   EB_APPLICATION_NAME: "django-app"
   EB_ENVIRONMENT_NAME: "Django-app-env"
   DEPLOY_PACKAGE_NAME: "django-app-${{ github.sha }}.zip"
@@ -42,7 +42,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION_NAME }}
       - name: Copying file to S3
-        run: aws s3 cp django-app-35154bbd27c93a9709c0cee4afab84be62402982.zip s3://elasticbeanstalk-ap-south-1-941377113359/ --region ap-south-1
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_S3_BUCKET_NAME }}/
       - name: Print nice message on success finish
         run: echo "CI part finished successfuly"
   deploy:
