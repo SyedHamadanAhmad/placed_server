@@ -19,6 +19,6 @@ from django.urls import path, include
 from gemini_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('gemini_app.urls'))
+    path('', include('gemini_app.urls'))
 
 ]
