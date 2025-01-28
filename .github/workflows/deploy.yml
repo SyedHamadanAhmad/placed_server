@@ -55,7 +55,17 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION_NAME }}
-
+      - name: Check if Elastic Beanstalk Application exists
+        id: check_application
+        run: |
+            aws elasticbeanstalk describe-applications --region ap-south-1 --query "Applications[?ApplicationName=='${{ env.EB_APPLICATION_NAME }}']" --output text
+        continue-on-error: true  # This allows the workflow to continue even if the application doesn't exist
+      - name: Create Elastic Beanstalk Application if it does not exist
+        if: steps.check_application.outcome != 'success'
+        run: |
+            aws elasticbeanstalk create-application \
+            --application-name ${{ env.EB_APPLICATION_NAME }} \
+            --region ap-south-1
       - name: Create new EBL app ver
         run: |
            aws elasticbeanstalk create-application-version \
