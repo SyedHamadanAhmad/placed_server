@@ -58,10 +58,11 @@ jobs:
 
       - name: Create new EBL app ver
         run: |
-          aws elasticbeanstalk create-application-version \
-          --application-name ${{ env.EB_APPLICATION_NAME }} \
-          --source-bundle S3Bucket="${{ env.EB_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
-          --version-label "${{ env.VERSION_NAME }}"
+           aws elasticbeanstalk create-application-version \
+           --application-name ${{ env.EB_APPLICATION_NAME }} \
+           --source-bundle S3Bucket="${{ env.EB_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+           --version-label "${{ env.VERSION_NAME }}" \
+           --region ap-south-1
 
       - name: Deploy new app
         run: |
