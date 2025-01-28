@@ -2,8 +2,8 @@ name: CI-CD pipeline to AWS
 env:
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   EB_S3_BUCKET_NAME: "elasticbeanstalk-ap-south-1-941377113359"
-  EB_APPLICATION_NAME: "django-app"
-  EB_ENVIRONMENT_NAME: "Django-app-env"
+  EB_APPLICATION_NAME: "placed_server _v3"
+  EB_ENVIRONMENT_NAME: "Placedserverv3-env"
   DEPLOY_PACKAGE_NAME: "django-app-${{ github.sha }}.zip"
   VERSION_NAME: ${{ github.sha }}
   AWS_REGION_NAME: "ap-south-1"
